@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Vortal
+Comment=Configuração de conexão Vortal
+Exec=vortal-desktop
+Icon=com.vortal.desktop
+Terminal=false
+Categories=Network;Utility;
+StartupWMClass=com.vortal.desktop

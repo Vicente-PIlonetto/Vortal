@@ -11,21 +11,27 @@ members = [
   "crates/vortal-daemon",
   "crates/vortal-cli",
   "crates/vortal-ui",
+  "crates/vortal-desktop",
 ]
 
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
 license = "MIT OR Apache-2.0"
-rust-version = "1.82"
+rust-version = "1.85"
 
 [workspace.dependencies]
 anyhow = "1.0"
 async-trait = "0.1"
 postcard = { version = "1.1", features = ["alloc"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "stream"] }
+quinn = { version = "0.11", default-features = false, features = ["runtime-tokio", "rustls-ring"] }
+rcgen = "0.13"
+rustls = { version = "0.23", default-features = false, features = ["ring", "std"] }
 serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
 thiserror = "2.0"
-tokio = { version = "1.43", features = ["macros", "rt-multi-thread", "sync", "time"] }
+tokio = { version = "1.43", features = ["macros", "rt-multi-thread", "sync", "time", "net", "io-util", "signal"] }
 tracing = "0.1"
 
 [workspace.lints.rust]
@@ -33,4 +39,3 @@ unsafe_code = "deny"
 
 [workspace.lints.clippy]
 all = "deny"
-

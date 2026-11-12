@@ -1,0 +1,15 @@
+[Unit]
+Description=Vortal Wayland input receiver
+After=graphical-session.target
+PartOf=graphical-session.target
+ConditionPathExists=%h/.local/share/vortal/identity/key.der
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/vortald --input --clipboard --audio --bind 0.0.0.0:24800 --identity %h/.local/share/vortal/identity --peer-cert %h/.local/share/vortal/peer.der
+Restart=on-failure
+RestartSec=1
+TimeoutStopSec=1
+
+[Install]
+WantedBy=graphical-session.target

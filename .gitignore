@@ -9,6 +9,7 @@
 *.local.toml
 /dist/
 /build/
+vortal-ui-before-rust-*.zip
 *.msi
 *.deb
 *.AppImage

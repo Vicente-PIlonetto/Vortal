@@ -24,6 +24,8 @@ Vortal must independently authenticate each connection and verify the remote ide
 
 ## Planned adapter
 
-`vortal-vylink` implements the platform-neutral `PeerDirectory` trait. Stage 1 records the observed boundary only; it does not fabricate a Rust dependency for a Go repository or copy VyLink implementation code. Stage 3 should consume either a supported VyLink library release once one exists, or the authenticated snapshot API through a small Rust HTTP client. Do not use a Git submodule.
+`vortal-vylink` now implements the platform-neutral `PeerDirectory` trait using the authenticated snapshot API. It posts `{"network":"<network name>"}` to `/v1/snapshot`, reads the `network.devices` fields above, and polls for changes every 15 seconds. The response is capped at 1 MiB. This request body field should be checked against the deployed VyLink API contract; the repository documentation available to Vortal did not specify the request schema. The adapter requires HTTPS and disables redirects so a bearer token is not forwarded to another host.
+
+The adapter accepts a `VyLinkCredentials` provider rather than loading or persisting a token itself. The CLI and daemon implement that provider using the native credential store via `keyring`; use `vortal vylink store-token` to save the bearer token. `vortal-net::serve_with_peer_directory` accepts a `PeerDirectory` and only sends `HandshakeAccepted` when the Hello device ID equals a currently online member's `publicKey`. For this mode, create the Vortal identity with that same public key as its device ID. The regular listener command remains an explicitly pinned-certificate fallback without VyLink membership lookup. Do not use a Git submodule or copy VyLink implementation code.
 
 Manual IP and mDNS discovery remain independent fallback `PeerDirectory` implementations. They do not inherit VyLink's membership authorization and must use the explicit fallback pairing flow.

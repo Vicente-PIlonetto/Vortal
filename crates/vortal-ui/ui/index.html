@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <title>Vortal</title>
+    <link rel="icon" href="assets/vortal.png" type="image/png">
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="Vortal">
+          <span class="brand-mark" aria-hidden="true">V</span>
+          <span>VORTAL</span>
+        </a>
+        <div class="topbar-end">
+          <nav id="desktop-nav" class="desktop-nav" hidden aria-label="Vortal">
+            <button id="nav-home" class="nav-button" type="button" data-i18n="navHome">Início</button>
+            <button id="nav-portals" class="nav-button" type="button" data-i18n="navPortals">Portais</button>
+            <button id="nav-settings" class="nav-button" type="button" data-i18n="navSettings">Configurações</button>
+          </nav>
+          <label class="sr-only" for="language" data-i18n="languageLabel">Idioma</label>
+          <select id="language" class="language-select" aria-label="Idioma">
+            <option value="pt-BR">PT</option>
+            <option value="en">EN</option>
+          </select>
+        </div>
+      </header>
+
+      <main id="home" class="main-layout">
+        <div class="content">
+          <section class="tile-grid" aria-label="Painel" data-i18n-aria-label="dashboard">
+            <article class="tile tile-connection">
+              <div class="tile-head">
+                <div><p class="eyebrow" data-i18n="connectionEyebrow">PAREAMENTO</p><h2 data-i18n="connectionTitle">Conectar ao Linux</h2></div>
+                <div class="status-card">
+                  <span class="status-indicator" aria-hidden="true"></span>
+                  <div><span class="status-title" data-i18n="daemonStatus">Estado</span><strong data-i18n="notConnected">Desconectado</strong></div>
+                </div>
+              </div>
+              <div id="remote-control" class="remote-control" hidden>
+                <form id="pair-id-form" class="peer-form" novalidate>
+                  <label for="pair-id" data-i18n="pairIdLabel">ID do Linux</label>
+                  <div class="input-row"><input id="pair-id" type="text" maxlength="9" autocomplete="off" placeholder="AB 123456"><button class="button button-light" type="submit" data-i18n="pairById">Parear</button></div>
+                </form>
+                <p id="remote-status" role="status" aria-live="polite"></p>
+                <button id="start-control" class="button button-light" type="button" data-i18n="startControl" hidden>Conectar</button>
+                <button id="stop-control" class="button" type="button" data-i18n="stopControl" hidden>Desconectar</button>
+                <div id="capture-zone" class="capture-zone" tabindex="0" hidden data-i18n="captureHint">Clique aqui para controlar o Linux.</div>
+              </div>
+            </article>
+
+            <article class="tile tile-primary" id="devices">
+              <div class="tile-head">
+                <div><p class="eyebrow" data-i18n="devicesEyebrow">REDE</p><h2 data-i18n="devicesTitle">Dispositivos</h2></div>
+                <span class="tile-icon" aria-hidden="true">▦</span>
+              </div>
+              <div class="mode-row">
+                <div class="mode-copy">
+                  <strong data-i18n="vylinkSwitchLabel">Usar VyLink</strong>
+                  <span data-i18n="vylinkSwitchHelp">Autorizar membros da rede VyLink.</span>
+                </div>
+                <label class="switch-control">
+                  <span class="sr-only" data-i18n="vylinkSwitchLabel">Usar VyLink</span>
+                  <input id="vylink-enabled" type="checkbox" role="switch" aria-checked="false">
+                  <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+                </label>
+              </div>
+              <div id="vylink-settings" class="vylink-settings" hidden>
+                <label for="vylink-server" data-i18n="vylinkServerLabel">Servidor VyLink</label>
+                <input id="vylink-server" type="url" placeholder="https://vylink.example" autocomplete="url">
+                <label for="vylink-network" data-i18n="vylinkNetworkLabel">Nome da rede</label>
+                <input id="vylink-network" type="text" autocomplete="off">
+              </div>
+              <div class="empty-state">
+                <h3 data-i18n="emptyTitle">Nenhum dispositivo</h3>
+              </div>
+              <div id="peer-list" class="peer-list" aria-live="polite"></div>
+              <details class="manual-details">
+                <summary data-i18n="manualConnection">Conexão manual</summary>
+                <form id="peer-form" class="peer-form" novalidate>
+                  <label for="peer-address" data-i18n="peerLabel">IP do dispositivo</label>
+                  <div class="input-row">
+                    <input id="peer-address" name="peer" type="text" inputmode="url" autocomplete="off" placeholder="100.64.0.2" aria-describedby="peer-error">
+                    <button class="button button-light" type="submit" data-i18n="addPeer">Adicionar</button>
+                  </div>
+                  <p id="peer-error" class="field-error" role="alert" hidden></p>
+                </form>
+                <button id="choose-peer-cert" class="button" type="button" data-i18n="choosePeerCert">Selecionar certificado</button>
+              </details>
+            </article>
+
+            <article class="tile tile-small" id="settings">
+              <div class="tile-head">
+                <div><p class="eyebrow" data-i18n="preferencesEyebrow">PREFERÊNCIAS</p><h2 data-i18n="preferencesTitle">Configurações</h2></div>
+                <span class="tile-icon" aria-hidden="true">⚙</span>
+              </div>
+              <div class="setting-row"><span data-i18n="startupLabel">Iniciar com o sistema</span><span class="setting-value" data-i18n="off">Desativado</span></div>
+              <div class="setting-row"><span data-i18n="clipboardLabel">Área de transferência</span><span class="setting-value" data-i18n="off">Desativado</span></div>
+              <div class="setting-row"><span data-i18n="securityLabel">Autenticação</span><span class="setting-value" data-i18n="pending">Pendente</span></div>
+            </article>
+
+            <article class="tile tile-small tile-about">
+              <div class="tile-head">
+                <div><p class="eyebrow" data-i18n="aboutEyebrow">VORTAL</p><h2 data-i18n="aboutTitle">Sobre</h2></div>
+                <span class="tile-icon" aria-hidden="true">ⓘ</span>
+              </div>
+              <p class="tile-copy" data-i18n="aboutText">Controle local, rede privada, código aberto.</p>
+              <a class="text-link" href="https://github.com/Vicente-PIlonetto/Vortal" data-i18n="projectLink">Ver projeto <span aria-hidden="true">↗</span></a>
+            </article>
+          </section>
+          <section id="portal-page" class="portal-page" hidden aria-labelledby="portal-title">
+            <p class="eyebrow" data-i18n="portalEyebrow">POSIÇÃO DA TELA</p>
+            <h1 id="portal-title" data-i18n="portalTitle">Portal para o Linux</h1>
+            <p class="lead" data-i18n="portalIntro">Arraste o cursor pela borda escolhida para entrar no Linux.</p>
+            <div class="portal-editor">
+              <div class="portal-fields">
+                <label for="portal-monitor" data-i18n="portalMonitor">Monitor Windows</label>
+                <select id="portal-monitor"></select>
+                <label for="portal-side" data-i18n="portalSide">Borda de saída</label>
+                <select id="portal-side">
+                  <option value="Left" data-i18n="portalLeft">Esquerda</option>
+                  <option value="Right" data-i18n="portalRight">Direita</option>
+                  <option value="Top" data-i18n="portalTop">Superior</option>
+                  <option value="Bottom" data-i18n="portalBottom">Inferior</option>
+                </select>
+                <p id="portal-status" class="field-help" role="status" aria-live="polite"></p>
+              </div>
+              <div class="portal-preview" aria-hidden="true">
+                <div class="portal-screen"><span data-i18n="portalWindows">Windows</span><span id="portal-marker" class="portal-marker"></span></div>
+                <div class="portal-screen portal-linux" data-i18n="portalLinux">Linux</div>
+              </div>
+            </div>
+            <p class="field-help" data-i18n="portalEscape">O atalho configurado devolve o controle local. A desconexão também libera o teclado e o mouse.</p>
+          </section>
+          <section id="input-settings-page" class="portal-page" hidden aria-labelledby="input-settings-title">
+            <p class="eyebrow" data-i18n="inputSettingsEyebrow">CONTROLE</p>
+            <h1 id="input-settings-title" data-i18n="inputSettingsTitle">Configurações de entrada</h1>
+            <p class="lead" data-i18n="inputSettingsIntro">Ajuste o controle do Linux pelo Windows.</p>
+            <div id="linux-pairing" class="input-settings-panel" hidden>
+              <div class="input-setting"><span data-i18n="myId">ID deste Linux</span><strong id="linux-id">—</strong></div>
+              <div id="pairing-request" class="input-setting" hidden>
+                <strong data-i18n="pairingRequest">Pedido de conexão</strong>
+                <span id="pairing-peer"></span>
+                <code id="pairing-fingerprint"></code>
+                <div class="remote-actions"><button id="allow-pairing" class="button button-light" type="button" data-i18n="allowPairing">Permitir</button><button id="deny-pairing" class="button" type="button" data-i18n="denyPairing">Recusar</button></div>
+              </div>
+            </div>
+            <div class="input-settings-panel">
+              <div class="input-setting">
+                <div class="input-setting-heading"><label for="mouse-sensitivity" data-i18n="mouseSensitivity">Sensibilidade do mouse</label><output id="mouse-sensitivity-value" for="mouse-sensitivity">100%</output></div>
+                <input id="mouse-sensitivity" type="range" min="5" max="100" step="5" value="100">
+                <p class="field-help" data-i18n="mouseSensitivityHelp">Aplica-se ao movimento enviado para o Linux.</p>
+              </div>
+              <div class="input-setting">
+                <div class="input-setting-heading"><label for="scroll-sensitivity" data-i18n="scrollSensitivity">Sensibilidade da rolagem</label><output id="scroll-sensitivity-value" for="scroll-sensitivity">100%</output></div>
+                <input id="scroll-sensitivity" type="range" min="25" max="300" step="25" value="100">
+                <p class="field-help" data-i18n="scrollSensitivityHelp">Ajusta a rolagem no Linux.</p>
+              </div>
+              <div class="input-setting input-setting-inline">
+                <div><label for="keyboard-enabled" data-i18n="captureKeyboard">Capturar teclado</label><p class="field-help" data-i18n="captureKeyboardHelp">Envie as teclas ao Linux enquanto o portal estiver ativo.</p></div>
+                <label class="switch-control"><span class="sr-only" data-i18n="captureKeyboard">Capturar teclado</span><input id="keyboard-enabled" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span></label>
+              </div>
+              <div class="input-setting">
+                <label for="keyboard-layout" data-i18n="keyboardLayout">Layout do teclado</label>
+                <select id="keyboard-layout">
+                  <option value="auto" data-i18n="layoutAuto">Automático (Windows)</option>
+                  <option value="us" data-i18n="layoutUs">Inglês (EUA)</option>
+                  <option value="abnt2" data-i18n="layoutAbnt2">Português (Brasil, ABNT2)</option>
+                </select>
+                <p class="field-help" data-i18n="keyboardLayoutHelp">Layouts escolhidos precisam estar instalados no Windows.</p>
+              </div>
+              <div class="input-setting">
+                <label for="return-key" data-i18n="returnShortcut">Atalho para voltar ao Windows</label>
+                <div class="remote-actions">
+                  <label><input id="return-ctrl" type="checkbox" checked> Ctrl</label>
+                  <label><input id="return-shift" type="checkbox" checked> Shift</label>
+                  <label><input id="return-alt" type="checkbox"> Alt</label>
+                  <select id="return-key"></select>
+                </div>
+                <p class="field-help" data-i18n="returnShortcutHelp">Escolha pelo menos dois modificadores e uma tecla.</p>
+              </div>
+              <div class="input-setting input-setting-inline">
+                <div><label for="startup-enabled" data-i18n="startupLabel">Iniciar com o sistema</label><p class="field-help" data-i18n="startupHelp">Abre o Vortal ao entrar na conta.</p></div>
+                <label class="switch-control"><span class="sr-only" data-i18n="startupLabel">Iniciar com o sistema</span><input id="startup-enabled" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span></label>
+              </div>
+              <div class="input-setting input-setting-inline">
+                <div><label for="auto-connect" data-i18n="autoConnect">Conectar automaticamente</label><p class="field-help" data-i18n="autoConnectHelp">Conecta ao Linux quando o Vortal abre.</p></div>
+                <label class="switch-control"><span class="sr-only" data-i18n="autoConnect">Conectar automaticamente</span><input id="auto-connect" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span></label>
+              </div>
+              <div class="input-setting input-setting-inline">
+                <div><label for="clipboard-enabled" data-i18n="clipboardLabel">Área de transferência</label><p class="field-help" data-i18n="clipboardHelp">Compartilha texto e arquivos de até 32 MB.</p></div>
+                <label class="switch-control"><span class="sr-only" data-i18n="clipboardLabel">Área de transferência</span><input id="clipboard-enabled" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span></label>
+              </div>
+              <div class="input-setting input-setting-inline">
+                <div><label for="audio-enabled" data-i18n="audioLabel">Áudio do Linux no Windows</label><p class="field-help" data-i18n="audioHelp">Envia o som reproduzido no Linux para o Windows.</p></div>
+                <label class="switch-control"><span class="sr-only" data-i18n="audioLabel">Áudio do Linux no Windows</span><input id="audio-enabled" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span></label>
+              </div>
+              <p id="input-settings-status" class="field-help" role="status" aria-live="polite"></p>
+            </div>
+          </section>
+          <footer><span data-i18n="footerText">Vortal · Controle entre dispositivos</span><span data-i18n="footerStage">Prévia da interface</span></footer>
+        </div>
+      </main>
+      <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
