@@ -611,7 +611,7 @@ function createWindow() {
   window.once('ready-to-show', () => window.show());
   window.webContents.on('will-navigate', (event, url) => {
     event.preventDefault();
-    if (url === 'https://github.com/VyktorCorner/vortal') void shell.openExternal(url);
+    if (url === 'https://github.com/Vicente-PIlonetto/Vortal') void shell.openExternal(url);
   });
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   window.webContents.on('render-process-gone', () => { stopEdgeCapture(); if (session) session.kill(); });
