@@ -1,0 +1,12 @@
+[package]
+name = "vortal-vylink"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+async-trait.workspace = true
+vortal-input = { path = "../vortal-input" }
+
+[lints]
+workspace = true

@@ -1,0 +1,17 @@
+/target/
+/node_modules/
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+/config.local.toml
+*.local.toml
+/dist/
+/build/
+*.msi
+*.deb
+*.AppImage
+*.flatpak
+.idea/
+.vscode/

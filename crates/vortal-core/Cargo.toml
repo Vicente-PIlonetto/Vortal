@@ -1,0 +1,13 @@
+[package]
+name = "vortal-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+thiserror.workspace = true
+vortal-input = { path = "../vortal-input" }
+vortal-proto = { path = "../vortal-proto" }
+
+[lints]
+workspace = true

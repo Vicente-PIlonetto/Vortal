@@ -1,0 +1,17 @@
+[package]
+name = "vortal-daemon"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "vortald"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+
+[lints]
+workspace = true

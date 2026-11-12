@@ -1,0 +1,36 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/vortal-proto",
+  "crates/vortal-core",
+  "crates/vortal-net",
+  "crates/vortal-vylink",
+  "crates/vortal-input",
+  "crates/vortal-input-windows",
+  "crates/vortal-input-linux",
+  "crates/vortal-daemon",
+  "crates/vortal-cli",
+  "crates/vortal-ui",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+rust-version = "1.82"
+
+[workspace.dependencies]
+anyhow = "1.0"
+async-trait = "0.1"
+postcard = { version = "1.1", features = ["alloc"] }
+serde = { version = "1.0", features = ["derive"] }
+thiserror = "2.0"
+tokio = { version = "1.43", features = ["macros", "rt-multi-thread", "sync", "time"] }
+tracing = "0.1"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+
+[workspace.lints.clippy]
+all = "deny"
+

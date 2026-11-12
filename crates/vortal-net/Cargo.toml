@@ -1,0 +1,14 @@
+[package]
+name = "vortal-net"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+tokio.workspace = true
+tracing.workspace = true
+vortal-input = { path = "../vortal-input" }
+vortal-proto = { path = "../vortal-proto" }
+
+[lints]
+workspace = true

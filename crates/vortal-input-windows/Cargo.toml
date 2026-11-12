@@ -1,0 +1,11 @@
+[package]
+name = "vortal-input-windows"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+vortal-input = { path = "../vortal-input" }
+
+[lints]
+workspace = true
