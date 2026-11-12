@@ -2,4 +2,6 @@
 
 The workspace separates the versioned protocol (`vortal-proto`), platform-neutral input and peer contracts (`vortal-input`), core state/layout (`vortal-core`), transport (`vortal-net`), and platform adapters. The daemon owns input and transport work; the UI remains a separate process.
 
-Stage 1 defines contracts only. Later stages fill in the core, QUIC transport, VyLink adapter, Windows and Linux/Wayland backends, and daemon/CLI.
+Stage 2 adds CLI address selection and Stage 3 adds QUIC with mutual TLS and pinned self-signed peer certificates. Generate an identity with `vortal identity DEVICE_ID --dir DIR`, exchange its `cert.der` securely, and pass the peer certificate with `--peer-cert`. `vortal serve --bind 0.0.0.0:24800 --identity DIR --peer-cert FILE` listens on UDP; `vortal connect 100.64.0.2:24800 --identity DIR --peer-cert FILE` accepts a Tailscale IPv4 address (or any other socket address). These commands test the handshake. The Windows-to-Linux input path uses `vortald --input` and `vortal connect-input` through the Electron app.
+
+The VyLink snapshot adapter and an opt-in QUIC membership gate are implemented as libraries. The daemon reads the VyLink token from the OS credential store when that mode is selected. The experimental Windows-to-Linux path captures input inside the Electron window and injects it through Wayland virtual input protocols after the pinned-certificate handshake. A 300 ms heartbeat timeout closes a lost session. Automatic edge capture, clipboard sharing, and a general local UI API remain future work.

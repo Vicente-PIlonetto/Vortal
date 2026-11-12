@@ -1,0 +1,51 @@
+{
+  "name": "vortal-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vortal desktop application",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "package:windows": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "^37.2.6",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.vortal.desktop",
+    "productName": "Vortal",
+    "asar": true,
+    "directories": {
+      "output": "dist/windows-electron"
+    },
+    "files": [
+      "electron/**/*",
+      "crates/vortal-ui/ui/**/*",
+      "crates/vortal-desktop/assets/vortal.ico",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "dist/windows/resources/bin",
+        "to": "bin",
+        "filter": ["vortal.exe", "vortald.exe", "vortal-motion.exe"]
+      }
+    ],
+    "win": {
+      "icon": "crates/vortal-desktop/assets/vortal.ico",
+      "target": ["nsis"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "packElevateHelper": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Vortal",
+      "artifactName": "Vortal-Setup-x64.exe",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

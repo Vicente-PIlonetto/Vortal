@@ -1,0 +1,17 @@
+:root {
+  color-scheme: dark;
+  --gray-0: #080808;
+  --gray-1: #101010;
+  --gray-2: #181818;
+  --gray-3: #222222;
+  --gray-4: #303030;
+  --gray-5: #484848;
+  --gray-6: #686868;
+  --gray-7: #929292;
+  --gray-8: #b8b8b8;
+  --gray-9: #dedede;
+  --gray-10: #f5f5f5;
+  --space-unit: 8px;
+  --font-ui: Selawik, "Segoe UI", system-ui, sans-serif;
+}
+

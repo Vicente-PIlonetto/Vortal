@@ -13,6 +13,7 @@ pub struct Envelope {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Message {
     Hello(Hello),
+    HandshakeAccepted { device_id: String },
     MouseMove(MouseMove),
     MouseButton(MouseButton),
     MouseScroll(MouseScroll),
@@ -21,6 +22,9 @@ pub enum Message {
     LeaveScreen,
     ClipboardOffer(ClipboardOffer),
     ClipboardData(ClipboardData),
+    ClipboardText(String),
+    AudioControl(bool),
+    AudioPcm(Vec<u8>),
     Ping(Ping),
     Pong(Pong),
 }
@@ -38,6 +42,7 @@ pub enum Capability {
     RelativePointer,
     Keyboard,
     ClipboardText,
+    ClipboardFiles,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -150,6 +155,9 @@ mod tests {
                 device_name: "Desk".into(),
                 capabilities: vec![Capability::Keyboard],
             }),
+            Message::HandshakeAccepted {
+                device_id: "desk".into(),
+            },
             Message::MouseMove(MouseMove { dx: -3, dy: 8 }),
             Message::MouseButton(MouseButton {
                 button: 1,
@@ -182,6 +190,9 @@ mod tests {
                 data: vec![1, 2, 3, 4],
                 final_chunk: true,
             }),
+            Message::ClipboardText("texto copiado".into()),
+            Message::AudioControl(true),
+            Message::AudioPcm(vec![0, 1, 2, 3]),
             Message::Ping(Ping { nonce: 17 }),
             Message::Pong(Pong { nonce: 17 }),
         ];

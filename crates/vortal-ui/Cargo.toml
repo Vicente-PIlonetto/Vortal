@@ -7,5 +7,26 @@ license.workspace = true
 [lib]
 path = "src/lib.rs"
 
-[lints]
-workspace = true
+[dependencies]
+anyhow.workspace = true
+
+[target.'cfg(target_os = "linux")'.dependencies]
+gtk = "0.18"
+serde_json.workspace = true
+sha2 = "0.10"
+vortal-net = { path = "../vortal-net" }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+base64 = "0.22"
+png = "0.18"
+serde_json.workspace = true
+sha2 = "0.10"
+tao = "0.37"
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Globalization", "Win32_Graphics_Gdi", "Win32_System_DataExchange", "Win32_System_LibraryLoader", "Win32_System_Memory", "Win32_System_Threading", "Win32_UI_Controls_Dialogs", "Win32_UI_Shell", "Win32_UI_WindowsAndMessaging", "Win32_UI_Input_KeyboardAndMouse"] }
+wry = "0.57"
+
+[lints.rust]
+unsafe_code = "allow"
+
+[lints.clippy]
+all = "deny"

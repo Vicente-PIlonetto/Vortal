@@ -1,0 +1,13 @@
+window, box.app-content { background: @gray_0; color: @gray_10; }
+box.app-content { padding: 28px; }
+label.app-title { font-size: 28px; font-weight: 600; margin-bottom: 18px; }
+box.card { background: @gray_1; border: 1px solid @gray_3; padding: 18px; margin-bottom: 12px; }
+label.device-id { font-size: 32px; font-weight: 700; letter-spacing: 2px; }
+label.status { color: @gray_7; margin-top: 10px; }
+box.setting-row { padding-top: 13px; padding-bottom: 13px; border-bottom: 1px solid @gray_3; }
+button { background: @gray_2; color: @gray_9; border: 1px solid @gray_3; border-radius: 0; box-shadow: none; padding: 8px 14px; }
+button.primary { background: @gray_10; color: @gray_0; border-color: @gray_10; }
+button:focus-visible, switch:focus-visible { outline: 2px solid @gray_10; outline-offset: 2px; }
+switch { background: @gray_3; border-radius: 0; box-shadow: none; }
+switch:checked { background: @gray_7; }
+switch slider { background: @gray_9; border-radius: 0; box-shadow: none; }

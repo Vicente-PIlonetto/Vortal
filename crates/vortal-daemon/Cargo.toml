@@ -10,8 +10,29 @@ path = "src/main.rs"
 
 [dependencies]
 anyhow.workspace = true
-tokio.workspace = true
+async-trait.workspace = true
+tokio = { workspace = true, features = ["process", "io-util", "fs"] }
 tracing.workspace = true
+vortal-net = { path = "../vortal-net" }
+vortal-input = { path = "../vortal-input" }
+vortal-proto = { path = "../vortal-proto" }
+serde.workspace = true
+serde_json.workspace = true
+sha2 = "0.10"
+base64 = "0.22"
+getrandom = "0.4"
+url = "2.5"
+vortal-vylink = { path = "../vortal-vylink" }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+keyring = { version = "3.6", default-features = false, features = ["sync-secret-service"] }
+vortal-input-linux = { path = "../vortal-input-linux" }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+keyring = { version = "3.6", default-features = false, features = ["windows-native"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+keyring = { version = "3.6", default-features = false, features = ["apple-native"] }
 
 [lints]
 workspace = true
